@@ -5,6 +5,10 @@ const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
 
+const userRouter = require('./routes/userRoutes')
+const AppError = require('./utils/appError')
+const globalErrorHandler = require('./controllers/errorController')
+
 const app = express();
 
 // 1) Global MIDDLEWARES
@@ -34,13 +38,14 @@ app.use(mongoSanitize())
 // Data Sanitization against XSS
 app.use(xss())
 
-// router
+// routes
+app.use('/api/v1/users', userRouter)
 
 // HANDLING UNHANDLED ROUTES
-// app.all('*', (req, res, next) => {
-//     next(new AppError(`Cann't Find ${req.originalUrl} on this Server!`, 404))
-//   })
+app.all('*', (req, res, next) => {
+    next(new AppError(`Cann't Find ${req.originalUrl} on this Server!`, 404))
+})
   
-// app.use(globalErrorHandler)
+app.use(globalErrorHandler)
   
 module.exports = app;
