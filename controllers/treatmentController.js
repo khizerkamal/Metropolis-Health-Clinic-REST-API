@@ -1,6 +1,7 @@
 const Treatment = require('../models/treatmentModel')
+const catchAsync = require('../utils/catchAsync')
 
-exports.bookAppointment = catchAsync(async (req,res,next) => {
+exports.treatment = catchAsync(async (req,res,next) => {
     const treatment = await Treatment.create({
         appointmentId: req.body.appointmentId,
         treatment: req.body.treatment
