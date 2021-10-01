@@ -2,12 +2,19 @@ const express = require('express')
 const authController = require('../controllers/authController')
 const appointmentController = require('../controllers/appointmentController')
 const treatmentController = require('../controllers/treatmentController')
+const dashboardController = require('../controllers/dashboardController')
 
 const router = express.Router();
 
 router.post('/login',authController.login)
-router.post('/dashboard/:token',authController.regLogin)
 router.post('/signup',authController.signup)
+router.post('/login/:token',authController.regLogin)
+
+router.get(
+    '/dashboard',
+    authController.protect,
+    dashboardController.showData
+)
 
 router.post(
     '/patient/bookAppointment',
@@ -21,4 +28,5 @@ router.post(
     authController.restrictTo('doctor'),
     treatmentController.treatment
 )
+
 module.exports = router;

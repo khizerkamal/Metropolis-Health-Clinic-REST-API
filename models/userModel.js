@@ -47,6 +47,15 @@ userSchema.methods.signToken = function (payload, expiry) {
         {expiresIn: expiry} 
     )
 }
+
+// query middleware to select only active users
+userSchema.pre(/^find/,function (next) {
+    this.find({ status: { $ne: false } })
+    
+    return next()
+})
+  
+
 userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
     return await bcrypt.compare(candidatePassword, userPassword)
 }

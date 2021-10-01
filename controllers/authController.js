@@ -59,7 +59,7 @@ exports.signup = catchAsync(async (req,res,next) => {
     status: true
   }
     const token = newUser.signToken(payload,'30m')
-    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/dashboard/${token}`
+    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/login/${token}`
 
   const message = `Welcome ${req.body.name} to the Metropolis Health Clinic, You can login by 
   clicking the below link\n${resetURL}`
