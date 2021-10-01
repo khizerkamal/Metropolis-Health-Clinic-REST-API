@@ -47,6 +47,9 @@ userSchema.methods.signToken = function (payload, expiry) {
         {expiresIn: expiry} 
     )
 }
+userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
+    return await bcrypt.compare(candidatePassword, userPassword)
+}
 
 const User = mongoose.model('User',userSchema,'Users')
 module.exports = User

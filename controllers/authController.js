@@ -14,7 +14,8 @@ const createSendToken = (user, statusCode, res, payload) => {
   }
 
   if(process.env.NODE_ENV === 'PRODUCTION') cookieOpions.secure = true;
-  res.cookie('jwt', token, cookieOpions)
+  res.cookie('token',token,cookieOpions)
+  user.password = undefined;
 
   res.status(statusCode).json({
     status: 'success',
@@ -24,22 +25,26 @@ const createSendToken = (user, statusCode, res, payload) => {
 }
 
 exports.login = catchAsync(async (req,res,next) => {
-  const { email, password } = req.body
-
+  const { email,password } = req.body
+  
   // 1) Check if email and password exist
   if (!email || !password) {
     return next(new AppError('Please provide email and password!', 400))
   }
 
   // 2) Check if user exists && password is correct
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ email }).select('+password')
   console.log(user)
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or Password', 401))
   }
  // 3) If everything ok then send token to client
- createSendToken(user, 200, res)
+ createSendToken(user,200,res,{
+  id: user._id,
+  name: user.name,
+  userType: user.userType
+})
 })
 
 exports.signup = catchAsync(async (req,res,next) => {
@@ -54,7 +59,7 @@ exports.signup = catchAsync(async (req,res,next) => {
     status: true
   }
     const token = newUser.signToken(payload,'30m')
-    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/login/${token}`
+    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/dashboard/${token}`
 
   const message = `Welcome ${req.body.name} to the Metropolis Health Clinic, You can login by 
   clicking the below link\n${resetURL}`
@@ -91,3 +96,24 @@ exports.regLogin = catchAsync(async (req,res,next) => {
     userType: user.userType
  })
 })
+
+// --------- Protected Routes ------------
+exports.protect = catchAsync(async (req,res,next) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return next(new AppError('You are not logged in! PLease log in to get access.', 401))
+  }
+  const decoded = await promisify(jwt.verify)(token,process.env.JWT_TOKEN_SECRET)
+  req.user = await User.findById(decoded.id)
+  next();
+})
+
+// ------------ Restrict To ---------------
+exports.restrictTo = (...roles) => {
+  return (req,res,next) => {
+    if (!roles.includes(req.user.userType)) {
+        return next(new AppError('You do not have permission to perform this action', 403))
+    }
+    next();
+    }
+}
