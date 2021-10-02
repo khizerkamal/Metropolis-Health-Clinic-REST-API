@@ -2,33 +2,33 @@
  <img src="./readmeImages/signup.JPG" />
  
 # 🔥 EMAIL
- <img src="mailtrap.JPG" />
+ <img src="./readmeImages/mailtrap.JPG" />
 
  # 🔥 EMAIL LINK TO TURN STATUS TRUE
- <img src="firstLogin.JPG" />
+ <img src="./readmeImages/firstLogin.JPG" />
 
  # 🔥 USER"S DASHBOARD BEFORE BOOKING ANY APPOINTMENT
- <img src="userDasboard1.JPG" />
+ <img src="./readmeImages/userDasboard1.JPG" />
 
  # 🔥 BOOK APPOINTMENT
- <img src="appointment.JPG" />
+ <img src="./readmeImages/appointment.JPG" />
 
  # 🔥 USER"S DASHBOARD AFTER BOOKING AN APPOINTMENT
- <img src="userDasboard2.JPG" />
+ <img src="./readmeImages/userDasboard2.JPG" />
 
   # 🔥 PROTECTED ROUTES
- <img src="protected.JPG" />
+ <img src="./readmeImages/protected.JPG" />
 
   # 🔥 LOGIN DOCTOR
- <img src="login.JPG" />
+ <img src="./readmeImages/login.JPG" />
 
   # 🔥 DOCTOR'S DASHBOARD
- <img src="ddash1.JPG" />
- <img src="ddash2.JPG" />
- <img src="ddash3.JPG" />
+ <img src="./readmeImages/ddash1.JPG" />
+ <img src="./readmeImages/ddash2.JPG" />
+ <img src="./readmeImages/ddash3.JPG" />
 
   # 🔥 DOCTOR'S TREATMENT
- <img src="treatment.JPG" />
+ <img src="./readmeImages/treatment.JPG" />
 
    # 🔥 DATABASE COLLECTIONS
- <img src="/db.JPG" />
+ <img src="./readmeImages/db.JPG" />
