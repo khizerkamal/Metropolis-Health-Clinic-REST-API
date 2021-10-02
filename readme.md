@@ -17,7 +17,7 @@
  <img src="./readmeImages/userDasboard2.JPG" />
 
   # 🔥 PROTECTED ROUTES
- <img src="./readmeImages/protected.JPG" />
+ <img src="./readmeImages/protected1.JPG" />
 
   # 🔥 LOGIN DOCTOR
  <img src="./readmeImages/login.JPG" />
