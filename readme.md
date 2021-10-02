@@ -1,5 +1,5 @@
 # 🔥 SIGNUP
- <img src="signup.JPG" />
+ <img src="./readmeImages/signup.JPG" />
  
 # 🔥 EMAIL
  <img src="mailtrap.JPG" />
