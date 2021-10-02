@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
+const bodyParser = require('body-parser')
 
 const userRouter = require('./routes/userRoutes')
 const AppError = require('./utils/appError')
@@ -32,12 +33,14 @@ const limiter = rateLimit({
 app.use('/api',limiter)
   
 // Body parser, reading data from body into req.body
-app.use(express.json({ limit: '10kb' }))
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 
 // Data Sanitization against NoSql query injection
 app.use(mongoSanitize())
 
-// Data Sanitization against XSS
+// // Data Sanitization against XSS
 app.use(xss())
 app.use(cookieParser())
 // routes
