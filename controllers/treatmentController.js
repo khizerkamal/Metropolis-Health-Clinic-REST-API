@@ -9,7 +9,6 @@ exports.treatment = catchAsync(async (req,res,next) => {
     })
   
     const appointment = await Appointment.findById(treatment.appointmentId)
-    console.log(appointment)
     appointment.status = 'done'
     await appointment.save();
 

@@ -84,8 +84,11 @@ exports.signup = catchAsync(async (req,res,next) => {
 
 exports.regLogin = catchAsync(async (req,res,next) => {
   const token = req.params.token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_TOKEN_SECRET)
+  console.log(token)
+  const decoded = await promisify(jwt.verify)(token,process.env.JWT_TOKEN_SECRET)
+  console.log(decoded)
   const user = await User.findById({ _id: decoded.id })
+  console.log(user)
   if(!user) return next(new AppError('user not found', 404))
   user.status = decoded.status
   await user.save();

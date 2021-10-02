@@ -7,7 +7,7 @@ exports.showData = catchAsync(async (req,res,next) => {
     const user = req.user
     if (user.userType === 'patient') {
         const appointments = await Appointment.find({ patientId: user.id })
-        const doctors = await User.find({ userType: 'doctor' })
+        const doctors = await User.find({ userType: 'doctor', status: { $ne: false } })
         return res.status(200).json({
             status: 'success',
             appointments,
